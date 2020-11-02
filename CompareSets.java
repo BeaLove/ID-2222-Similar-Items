@@ -19,7 +19,7 @@ public class CompareSets {
         int union_size = union.size();
         int intersection_size = intersection.size();
 
-        float similarity = union_size/intersection_size;
+        float similarity = intersection_size/union_size;
 
         return similarity;
 
