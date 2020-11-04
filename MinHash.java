@@ -3,6 +3,7 @@ import java.util.Random;
 
 
 public class MinHash {
+    //A class MinHash that computes the MinHash signatures of a given set of documents and returns it as a 
    //IN: number of hash functions, list of all documents as sets of hashed shingles
    //OUT: n x s signature matrix where each column s is the MinHash signature of a document,
    private int n_hash;
@@ -38,6 +39,7 @@ public class MinHash {
     }
 
     public int hash(int x, int a, int b){
+        //computes hash value of input x
         int c = 9973; //constant prime number closest to maximum expected value of x
         return (a*x + b) % c;
     }
