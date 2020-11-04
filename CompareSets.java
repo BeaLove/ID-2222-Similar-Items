@@ -1,8 +1,12 @@
 import java.util.HashSet;
-
+/**
+ * @author Lazar Cerovic & Beatrice Lovely (2020)
+ * A class CompareSets that computes the Jaccard similarity of two sets of integers – two
+ * sets of hashed shingles.
+ */
 public class CompareSets {
-        HashSet<Integer> set1 = new HashSet<Integer>();
-        HashSet<Integer> set2 = new HashSet<Integer>();
+        HashSet<Integer> set1;
+        HashSet<Integer> set2;
     public CompareSets(HashSet<Integer> set_1, HashSet<Integer> set_2) {
         set1 = set_1;
         set2 = set_2;
