@@ -1,4 +1,7 @@
-import jdk.nashorn.internal.ir.SetSplitState;
+/**
+ * @author Lazar Cerovic & Beatrice Lovely (2020)
+ * Driver class for homework 1: Finding Similar Items: Textually Similar Documents in Data mining course
+ */
 
 public class Driver {
     public static void main(String[] args ){
@@ -8,7 +11,6 @@ public class Driver {
         Shingling shingling = new Shingling(k, filename);
         shingling.readFromFile();
         shingling.hashShingle();
-        \\TO DO loop som shinglar alla dokument och sparar dem i en lista av Set 
-        \\TO DO loop som kör compareSets
+
     }
 }

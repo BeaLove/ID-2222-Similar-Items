@@ -1,22 +1,19 @@
-import java.awt.geom.Point2D;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
+/**
+ * @author Lazar Cerovic & Beatrice Lovely (2020)
+ * A class Shingling that constructs k–shingles of a given length k (e.g., 10) from a given
+ * document, computes a hash value for each unique shingle, and represents the document
+ * in the form of an ordered set of its hashed k-shingles.
+ */
 public class Shingling {
 
     private int shingle_size;
     private String filename;
     private String inputString;
-    /*
-    A class Shingling that constructs k–shingles of a given length k (e.g., 10) from a given
-    document, computes a hash value for each unique shingle, and represents the document
-    in the form of an ordered set of its hashed k-shingles.
-     */
 
     public Shingling(int k, String fn){
         shingle_size = k;
