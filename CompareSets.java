@@ -5,27 +5,24 @@ import java.util.HashSet;
  * sets of hashed shingles.
  */
 public class CompareSets {
-        HashSet<Integer> set1;
-        HashSet<Integer> set2;
-    public CompareSets(HashSet<Integer> set_1, HashSet<Integer> set_2) {
-        set1 = set_1;
-        set2 = set_2;
+
+
+    public CompareSets() {
     }
    
-    public float jaccardSimilarity() {
+    public double jaccardSimilarity(HashSet<Integer> set_1, HashSet<Integer> set_2) {
         HashSet<Integer> union = new HashSet<Integer>();
-        HashSet<Integer> intersection = new HashSet<Integer>();
-        union.addAll(set1);
-        union.addAll(set2);
-        intersection.retainAll(set1);
-        intersection.retainAll(set2);
+        union.addAll(set_1);
+        union.addAll(set_2);
 
         int union_size = union.size();
-        int intersection_size = intersection.size();
-
-        float similarity = intersection_size/union_size;
-
-        return similarity;
+        set_1.retainAll(set_2);
+        int intersection_size = set_1.size();
+        if(union.size() == 0){
+            return -1;
+        }else {
+            return intersection_size/union_size;
+        }
 
 
     }

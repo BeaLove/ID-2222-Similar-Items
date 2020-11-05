@@ -43,12 +43,10 @@ public class Shingling {
 
     //Shingling hash
     public HashSet<Integer> hashShingle(){
-        //ArrayList<Integer> hashedShingles = new ArrayList<>();
         HashSet<Integer> hashedShingles = new HashSet<>();
         for(int i = 0; i < inputString.length(); i++){
             if((i <= inputString.length()-shingle_size)){
                 String shingling = inputString.substring(i, i+shingle_size);
-                //System.out.println("SHingling: " + shingling);
                 hashedShingles.add(shingling.hashCode());
             }else{
                 break;

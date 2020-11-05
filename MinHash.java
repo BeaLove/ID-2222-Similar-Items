@@ -1,16 +1,21 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
-
+/**
+ * @author Lazar Cerovic & Beatrice Lovely (2020)
+ * A class MinHashing that builds a minHash signature (in the form of a vector or a set) of a
+ * given length n from a given set of integers (a set of hashed shingles).
+ */
 public class MinHash {
     //A class MinHash that computes the MinHash signatures of a given set of documents and returns it as a 
-   //IN: number of hash functions, list of all documents as sets of hashed shingles
-   //OUT: n x s signature matrix where each column s is the MinHash signature of a document,
-   private int n_hash;
-   private HashSet<Integer>[] docs; //Array of all documents as sets of shingles
-   public int[][] signatures; //array of vectors of unique minhash signatures
-   private int[][] hash_constants; //constants to use for hash functions
-   private HashSet<Integer> master_set; //master set of all shingles contained in all documents
+    //IN: number of hash functions, list of all documents as sets of hashed shingles
+    //OUT: n x s signature matrix where each column s is the MinHash signature of a document,
+    private int n_hash;
+    private HashSet<Integer>[] docs; //Array of all documents as sets of shingles
+    public int[][] signatures; //array of vectors of unique minhash signatures
+    private int[][] hash_constants; //constants to use for hash functions
+    private HashSet<Integer> master_set; //master set of all shingles contained in all documents
     public MinHash(int n_hash, HashSet<Integer> doc) {
         int s = doc.size();
         this.n_hash = n_hash;
@@ -21,7 +26,6 @@ public class MinHash {
                 signatures[i][j] = inf;
             }
         }
-        this.signatures = signatures;
         makeHashConstants(n_hash);
         makeMasterSet();
     }
@@ -58,22 +62,19 @@ public class MinHash {
         int num_docs = docs.length;
         int n = this.n_hash;
         int[][] signatures = new int[n][num_docs];
-        for(int d = 0; d < num_docs; d++){ 
+        for(int d = 0; d < num_docs; d++){
             for(int shingle: this.master_set) {
                 if (docs[d].contains(shingle)) {
                     for (int h = 0; h < n; h++ ){
                         int hash_val = hash(shingle, this.hash_constants[h][0], this.hash_constants[h][1]);
                         if (hash_val < signatures[h][d]){
-                           signatures[h][d] = hash_val; 
+                            signatures[h][d] = hash_val;
                         }
                     }
                 }
-                else {
-                    continue;
-                }
             }
         }
-        this.signatures = signatures;
         return signatures;
     }
+
 }
