@@ -15,10 +15,10 @@ public class CompareSets {
     public float jaccardSimilarity() {
         HashSet<Integer> union = new HashSet<Integer>();
         HashSet<Integer> intersection = new HashSet<Integer>();
-        union.addAll(set1);
-        union.addAll(set2);
-        intersection.retainAll(set1);
-        intersection.retainAll(set2);
+        union.addAll(this.set1);
+        union.addAll(this.set2);
+        intersection.retainAll(this.set1);
+        intersection.retainAll(this.set2);
 
         int union_size = union.size();
         int intersection_size = intersection.size();
