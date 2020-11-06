@@ -6,22 +6,15 @@ import java.util.ArrayList;
  * signatures – as a fraction of components, in which they agree.
  */
 public class CompareSignatures {
-    private int [][] signartureArray;
+    private int [][] signatureArray;
     private int size;
     public CompareSignatures(int[][] signatureMatrix, int vectorSize){
-        signartureArray = signatureMatrix;
+        signatureArray = signatureMatrix;
         size = vectorSize;
 
     }
 
 
-    public int compare(){
-        int sim = 0;
-        for(int i = 0; i < size; i++){ //For each row
-            if(signartureArray[i][0] == signartureArray[i][1]){
-                sim++;
-            }
-        }
-        return sim/size;
-    }
+    public double[][] compare(){
+        
 }

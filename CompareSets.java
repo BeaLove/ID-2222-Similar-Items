@@ -15,13 +15,18 @@ public class CompareSets {
         union.addAll(set_1);
         union.addAll(set_2);
 
-        int union_size = union.size();
+        double union_size = (double) union.size();
+        //System.out.println("union size " + union_size);
         set_1.retainAll(set_2);
-        int intersection_size = set_1.size();
+        double intersection_size = (double) set_1.size();
+        //System.out.println("intersection size " + intersection_size);
         if(union.size() == 0){
+            //System.out.println("-1");
             return -1;
         }else {
-            return intersection_size/union_size;
+            double result = intersection_size/union_size;
+            //System.out.println("result" + result);
+            return result;
         }
 
 

@@ -27,23 +27,26 @@ public class Driver {
         for(int i = 0; i < list_size; i++){
             for(int j = 0; j < list_size; j++){
                 jaccardMatrix[i][j] =  jaccard.jaccardSimilarity(shingles_list.get(i), shingles_list.get(j));
+            System.out.print(jaccardMatrix[i][j]+" ");
             }
+        System.out.println();
         }
-
-        int[][] minhash_signatures = new int[100][shingles_list.size()]; 
+        
+        //int[][] minhash_signatures = new int[100][shingles_list.size()]; 
         MinHash minHash = new MinHash(100,  shingles_list);
-        minhash_signatures = minHash.minHash();
+        //System.out.println("initialized minhash");
+        int[][] minhash_signatures = minHash.minHash();
+        //System.out.println("ran minhash");
         //TO DO: compare minhash signatures
-        for(int i = 0; i < list_size; i++){
-
-            shingles_list.get(i);
-        }
+        //double[][] similarity = new double[shingles_list.size()][shingles_list.size()];
+        //System.out.println(similarity[0][0]);
+        //System.out.println("initliazed simiarity");
+        CompareSignatures compare = new CompareSignatures(minhash_signatures, 100);
+        //System.out.println("initialized compare");
+        double[][] similarity = compare.compare();
 
 
     }
-
-
-
 
     private static HashSet<Integer> getShingles(int shingle_size, String filename){
         Shingling shingling = new Shingling(shingle_size, "raw_data/"+filename);
@@ -59,6 +62,7 @@ public class Driver {
         for(File file : listOfFiles){
             filenames.add(file.getName());
         }
+        System.out.println(filenames);
         return filenames;
     }
 

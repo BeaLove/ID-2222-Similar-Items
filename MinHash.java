@@ -61,16 +61,19 @@ public class MinHash {
         //generates the minhash signatures of all documents
         int num_docs = docs.size();
         int n = this.n_hash;
-        int[][] signatures = new int[n][num_docs];
+        //int[][] signatures = new int[n][num_docs];
         for(int d = 0; d < num_docs; d++){
             for(int shingle: this.master_set) {
                 if (docs.get(d).contains(shingle)) {
                     for (int h = 0; h < n; h++ ){
                         int hash_val = hash(shingle, this.hash_constants[h][0], this.hash_constants[h][1]);
+
                         if (hash_val < signatures[h][d]){
                             signatures[h][d] = hash_val;
                         }
+                        //System.out.print(signatures[h][d] + " ");
                     }
+                    //System.out.println("");
                 }
             }
         }
