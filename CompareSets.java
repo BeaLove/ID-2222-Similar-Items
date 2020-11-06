@@ -27,8 +27,8 @@ public class CompareSets {
             double result = intersection_size/union_size;
             //System.out.println("result" + result);
             return result;
+
+
         }
-
-
-    }
+    }   
 }

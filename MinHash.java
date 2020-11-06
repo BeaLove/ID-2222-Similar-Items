@@ -22,10 +22,10 @@ public class MinHash {
         docs = collection_docs;
         int s = docs.size();
         n_hash = num_hash;
-        signatures = new int[n_hash][s];
+        signatures = new int[s][n_hash];
         Integer inf = Integer.MAX_VALUE;
-        for (int i = 0; i < n_hash; i++){
-            for (int j = 0; j < s; j++){
+        for (int i = 0; i < s; i++){
+            for (int j = 0; j < n_hash; j++){
                 signatures[i][j] = inf;
             }
         }
@@ -62,14 +62,17 @@ public class MinHash {
         int num_docs = docs.size();
         int n = this.n_hash;
         //int[][] signatures = new int[n][num_docs];
-        for(int d = 0; d < num_docs; d++){
+        for(int d = 0; d < num_docs-1; d++){
+            if(docs.get(d) == docs.get(d+1)){
+                //System.out.println("True");
+            }
             for(int shingle: this.master_set) {
                 if (docs.get(d).contains(shingle)) {
                     for (int h = 0; h < n; h++ ){
                         int hash_val = hash(shingle, this.hash_constants[h][0], this.hash_constants[h][1]);
 
-                        if (hash_val < signatures[h][d]){
-                            signatures[h][d] = hash_val;
+                        if (hash_val < signatures[d][h]){
+                            signatures[d][h] = hash_val;
                         }
                         //System.out.print(signatures[h][d] + " ");
                     }
