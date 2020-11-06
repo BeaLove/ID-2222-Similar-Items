@@ -12,34 +12,36 @@ public class MinHash {
     //IN: number of hash functions, list of all documents as sets of hashed shingles
     //OUT: n x s signature matrix where each column s is the MinHash signature of a document,
     private int n_hash;
-    private HashSet<Integer>[] docs; //Array of all documents as sets of shingles
+    private ArrayList<HashSet<Integer>> docs; //Array of all documents as sets of shingles
     public int[][] signatures; //array of vectors of unique minhash signatures
     private int[][] hash_constants; //constants to use for hash functions
-    private HashSet<Integer> master_set; //master set of all shingles contained in all documents
-    public MinHash(int n_hash, ArrayList<HashSet<Integer>> doc) {
-        int s = doc.size();
-        this.n_hash = n_hash;
-        int[][] signatures = new int[n_hash][s];
+    private HashSet<Integer> master_set = new HashSet<>(); //master set of all shingles contained in all documents
+
+
+    public MinHash(int num_hash, ArrayList<HashSet<Integer>> collection_docs) {
+        docs = collection_docs;
+        int s = docs.size();
+        n_hash = num_hash;
+        signatures = new int[n_hash][s];
         Integer inf = Integer.MAX_VALUE;
         for (int i = 0; i < n_hash; i++){
             for (int j = 0; j < s; j++){
                 signatures[i][j] = inf;
             }
         }
-        makeHashConstants(n_hash);
+        makeHashConstants();
         makeMasterSet();
     }
 
-    public void makeHashConstants(int n_funcs) {
+    public void makeHashConstants() {
         //generates constants to use in hash functions
-        int[][] hash_constants = new int[this.n_hash][2];
+        hash_constants = new int[this.n_hash][2];
         int c = 9973;
         Random rand = new Random();
-        for (int n = 0; n < n_funcs; n++) {
+        for (int n = 0; n < n_hash; n++) {
             hash_constants[n][0] = rand.nextInt(c) + 1;
             hash_constants[n][1] = rand.nextInt(c);
         }
-        this.hash_constants = hash_constants;
     }
 
     public int hash(int x, int a, int b){
@@ -49,22 +51,20 @@ public class MinHash {
     }
 
     public void makeMasterSet() {
-        HashSet<Integer> master_set = new HashSet<Integer>();
         //creates a master list of all shingles contained in all documents
-        for (int i = 0; i < docs.length; i++){
-            master_set.addAll(docs[i]);
+        for (int i = 0; i < docs.size(); i++){
+            master_set.addAll(docs.get(i));
         }
-        this.master_set = master_set;
     }
 
     public int[][] minHash() {
         //generates the minhash signatures of all documents
-        int num_docs = docs.length;
+        int num_docs = docs.size();
         int n = this.n_hash;
         int[][] signatures = new int[n][num_docs];
         for(int d = 0; d < num_docs; d++){
             for(int shingle: this.master_set) {
-                if (docs[d].contains(shingle)) {
+                if (docs.get(d).contains(shingle)) {
                     for (int h = 0; h < n; h++ ){
                         int hash_val = hash(shingle, this.hash_constants[h][0], this.hash_constants[h][1]);
                         if (hash_val < signatures[h][d]){
