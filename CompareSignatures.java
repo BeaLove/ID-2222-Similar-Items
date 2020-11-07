@@ -17,17 +17,20 @@ public class CompareSignatures {
 
 
     public float compare(int[] sig1, int[] sig2){
-        int sim = 0;
-        for (int i = 0; i < sig1.length; i++){
+        float sim = 0;
+        float size = sig1.length;
+        for (int i = 0; i < size; i++){
             System.out.println(sig1[i] + " " + sig2[i]);
         }
         
-        for (int i = 0; i < sig1.length; i++){
+        for (int i = 0; i < size; i++){
+            System.out.println(sig1[i] + " " + sig2[i]);
             if (sig1[i] == sig2[i]) {
+                System.out.println("same");
                 sim++;
             }
         }
-        float similarity = sim/sig1.length;
+        float similarity = sim/size;
         System.out.println(similarity);
         return similarity;
     }
