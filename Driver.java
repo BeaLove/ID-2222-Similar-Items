@@ -57,17 +57,13 @@ public class Driver {
                 Set<String> names = new HashSet<>();
                 names.add(doc1);
                 names.add(doc2);
-                System.out.println(doc1 + " " + doc2);
-                float min_similarity = compare.compare(minhash_signatures[i], minhash_signatures[j]);
-                    //if (min_similarity > 0.8){
-                System.out.println("minhash similar: " + names + "similarity: " + min_similarity);
-                /*if (similar_docs.contains(names) || doc1 == doc2){
-                    //System.out.println("skip");
+                if (similar_docs.contains(names) || doc1 == doc2){
                     continue;
                 }
                 else {
-                    
-                    //}*/
+                    float min_similarity = compare.compare(minhash_signatures[i], minhash_signatures[j]);
+                    System.out.println("minhash similar: " + names + "similarity: " + min_similarity);
+                    }
                 }
             }    
         }
