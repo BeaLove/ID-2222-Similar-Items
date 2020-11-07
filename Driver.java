@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class Driver {
     public static void main(String[] args ) throws FileNotFoundException {
-        int k = 2;
+        int k = 5;
 
         ArrayList<String> filenames = getFiles();
         ArrayList<HashSet<Integer>> shingles_list = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Driver {
                 }
                 else{
                     double similarity =  jaccard.jaccardSimilarity(shingles_list.get(i), shingles_list.get(j));
-                    //System.out.println("jaccard similar " + names + " similarity: " + similarity);
+                    System.out.println("jaccard similar " + names + " similarity: " + similarity);
                     similar_documents.add(names);
                 }
             }
@@ -51,7 +51,7 @@ public class Driver {
         CompareSignatures compare = new CompareSignatures();
         ArrayList<Set<String>> similar_docs = new ArrayList<>();
         for (int i = 0; i < minhash_signatures.length; i++){
-            for (int j = 0; j < minhash_signatures.length - i; j++){
+            for (int j = 0; j < minhash_signatures.length; j++){
                 String doc1 = filenames.get(i);
                 String doc2 = filenames.get(j);
                 Set<String> names = new HashSet<>();

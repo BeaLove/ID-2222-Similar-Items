@@ -14,7 +14,8 @@ public class MinHash {
     private int n_hash;
     private ArrayList<HashSet<Integer>> docs; //Array of all documents as sets of shingles
     public int[][] signatures; //array of vectors of unique minhash signatures
-    private int[][] hash_constants; //constants to use for hash functions
+    private int[] coeff_a; //constants to use for hash functions
+    private int[] coeff_b;
 
 
     public MinHash(int num_hash, ArrayList<HashSet<Integer>> collection_docs) {
@@ -33,18 +34,16 @@ public class MinHash {
 
     public void makeHashConstants() {
         //generates constants to use in hash functions
-        hash_constants = new int[this.n_hash][2];
-        int c = 9973;
+        int c = 10007;
         Random rand = new Random();
-        for (int n = 0; n < n_hash; n++) {
-            hash_constants[n][0] = rand.nextInt(c) + 1;
-            hash_constants[n][1] = rand.nextInt(c);
-        }
+        coeff_a = rand.ints(1, c).distinct().limit(n_hash).toArray();
+        coeff_b = rand.ints(0, c).distinct().limit(n_hash).toArray();
+        
     }
 
     public int hash(int x, int a, int b){
         //computes hash value of input x
-        int c = 9973; //constant prime number closest to maximum expected value of x
+        int c = 10007; //constant prime number closest to maximum expected value of x
         return (a*x + b) % c;
     }
 
@@ -55,7 +54,7 @@ public class MinHash {
         for(int d = 0; d < num_docs; d++){
             for (int shingle: docs.get(d)){
                 for (int h = 0; h < n_hash; h++ ){
-                    int hash_val = hash(shingle, hash_constants[h][0], hash_constants[h][1]);
+                    int hash_val = hash(shingle, coeff_a[h], coeff_b[h]);
                     if (hash_val < signatures[d][h]){
                         signatures[d][h] = hash_val;
                     }
