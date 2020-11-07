@@ -15,7 +15,6 @@ public class MinHash {
     private ArrayList<HashSet<Integer>> docs; //Array of all documents as sets of shingles
     public int[][] signatures; //array of vectors of unique minhash signatures
     private int[][] hash_constants; //constants to use for hash functions
-    private HashSet<Integer> master_set = new HashSet<>(); //master set of all shingles contained in all documents
 
 
     public MinHash(int num_hash, ArrayList<HashSet<Integer>> collection_docs) {
@@ -30,7 +29,6 @@ public class MinHash {
             }
         }
         makeHashConstants();
-        makeMasterSet();
     }
 
     public void makeHashConstants() {
@@ -50,33 +48,17 @@ public class MinHash {
         return (a*x + b) % c;
     }
 
-    public void makeMasterSet() {
-        //creates a master list of all shingles contained in all documents
-        for (int i = 0; i < docs.size(); i++){
-            master_set.addAll(docs.get(i));
-        }
-    }
-
     public int[][] minHash() {
         //generates the minhash signatures of all documents
         int num_docs = docs.size();
-        int n = this.n_hash;
         //int[][] signatures = new int[n][num_docs];
-        for(int d = 0; d < num_docs-1; d++){
-            if(docs.get(d) == docs.get(d+1)){
-                //System.out.println("True");
-            }
-            for(int shingle: this.master_set) {
-                if (docs.get(d).contains(shingle)) {
-                    for (int h = 0; h < n; h++ ){
-                        int hash_val = hash(shingle, this.hash_constants[h][0], this.hash_constants[h][1]);
-
-                        if (hash_val < signatures[d][h]){
-                            signatures[d][h] = hash_val;
-                        }
-                        //System.out.print(signatures[h][d] + " ");
+        for(int d = 0; d < num_docs; d++){
+            for (int shingle: docs.get(d)){
+                for (int h = 0; h < n_hash; h++ ){
+                    int hash_val = hash(shingle, hash_constants[h][0], hash_constants[h][1]);
+                    if (hash_val < signatures[d][h]){
+                        signatures[d][h] = hash_val;
                     }
-                    //System.out.println("");
                 }
             }
         }
