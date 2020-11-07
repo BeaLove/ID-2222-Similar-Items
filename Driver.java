@@ -1,8 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import sun.jvm.hotspot.ci.ciArrayKlass;
 
 
 /**
@@ -68,6 +72,23 @@ public class Driver {
             }    
         }
     
+        private ArrayList<ArrayList<String>> run_lsh(int[][] minhash_signatures, int n_bands, int n_signatures, ArrayList<String> filenames){
+        LSH lsh = new LSH(minhash_signatures, n_bands, n_signatures);
+        ArrayList<ArrayList<Integer>> lsh_signatures = lsh.lsh();
+        ArrayList<ArrayList<String>> candidate_pairs = new ArrayList<>();
+        for (int i = 0; i<filenames.size(); i++){
+            for(int j = 0; j<filenames.size(); j++){
+                String file1 = filenames.get(i);
+                String file2 = filenames.get(j);
+                if (file1 != file2 && lsh.compare(lsh_signatures.get(i), lsh_signatures.get(j))){
+                    System.out.println("candidate pair: " + file1 + " " + file2);
+                    ArrayList<String> pair = new ArrayList<String>(Arrays.asList(file1, file2));
+                    candidate_pairs.add(pair);
+                }
+            }
+        }
+        return candidate_pairs;
+    }
 
     private static HashSet<Integer> getShingles(int shingle_size, String filename){
         Shingling shingling = new Shingling(shingle_size, "raw_data/"+filename);
