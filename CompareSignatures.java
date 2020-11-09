@@ -6,32 +6,21 @@ import java.util.ArrayList;
  * signatures – as a fraction of components, in which they agree.
  */
 public class CompareSignatures {
-    
-    //private int vector_size;
-    //private int size;
-    public CompareSignatures(){
-        //signatureArray = signatureMatrix;
-        //int vector_size = sig1.length;
 
+    public CompareSignatures(){
     }
 
 
     public float compare(int[] sig1, int[] sig2){
         float sim = 0;
-        float size = sig1.length;
-        for (int i = 0; i < size; i++){
-            System.out.println(sig1[i] + " " + sig2[i]);
-        }
+        float size = (float) sig1.length;
         
-        for (int i = 0; i < size; i++){
-            System.out.println(sig1[i] + " " + sig2[i]);
+        for (int i = 0; i < sig1.length; i++){
             if (sig1[i] == sig2[i]) {
-                System.out.println("same");
                 sim++;
             }
         }
         float similarity = sim/size;
-        System.out.println(similarity);
         return similarity;
     }
         
